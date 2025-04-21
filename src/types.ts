@@ -9,6 +9,11 @@ export type Post = {
   title: string
   content: string
   model: Model
+  likeStatus: {
+    likePercentage: number
+    dislikePercentage: number
+    notSurePercentage: number
+  }
 }
 
 export type Model = {
