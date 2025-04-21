@@ -39,49 +39,73 @@ const modelsList: Option[] = [
   { value: 'gemma-3', label: 'Gemma 3 by Google DeepMind' },
 ]
 const TopicForm = () => {
+  const [topic, setTopic] = useState('')
   const [selectedModels, setSelectedModels] = useState<Option[]>([])
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission
+  }
+
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Create posts</CardTitle>
-        {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
-      </CardHeader>
-      <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Topic</Label>
-              <Input id="name" placeholder="Topic of your post" />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework">Models</Label>
-              <MultiSelect
-                options={modelsList}
-                onValueChange={(values: string[]) =>
-                  setSelectedModels(
-                    values.map(
-                      (value) =>
-                        modelsList.find((option) => option.value === value) || {
-                          label: value,
-                          value,
-                        }
+    <div className="container mx-auto p-4 sm:p-10">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight">Create Post</h1>
+        <p className="text-muted-foreground mt-1">
+          Create a new post with your selected topic and models
+        </p>
+      </div>
+      <Card>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <CardHeader>
+            <CardTitle>Create posts</CardTitle>
+            {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
+          </CardHeader>
+          <CardContent>
+            <div className="grid w-full items-center gap-6">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="name">Topic</Label>
+                <Input
+                  id="topic"
+                  placeholder="Topic of your post"
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="framework">Models</Label>
+                <MultiSelect
+                  options={modelsList}
+                  onValueChange={(values: string[]) =>
+                    setSelectedModels(
+                      values.map(
+                        (value) =>
+                          modelsList.find(
+                            (option) => option.value === value
+                          ) || {
+                            label: value,
+                            value,
+                          }
+                      )
                     )
-                  )
-                }
-                defaultValue={selectedModels.map((model) => model.value)}
-                placeholder="Select llm models"
-                variant="inverted"
-                animation={2}
-                maxCount={3}
-              />
+                  }
+                  defaultValue={selectedModels.map((model) => model.value)}
+                  placeholder="Select llm models"
+                  variant="inverted"
+                  animation={2}
+                  // maxCount={3}
+                />
+              </div>
             </div>
-          </div>
+          </CardContent>
+          <CardFooter className="flex justify-end">
+            <Button type="submit" size="lg">
+              Create Post
+            </Button>
+          </CardFooter>
         </form>
-      </CardContent>
-      <CardFooter className="flex justify-end">
-        <Button>Submit</Button>
-      </CardFooter>
-    </Card>
+      </Card>
+    </div>
   )
 }
 
