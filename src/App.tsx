@@ -3,7 +3,7 @@ import TopicForm from './pages/TopicForm'
 import Topics from './pages/Topics'
 import Topic from './pages/Topic'
 import AllPosts from './pages/AllPosts'
-import { Layout } from './components/Layout'
+import { Layout } from './components/Layout/Layout'
 
 function App() {
   return (
