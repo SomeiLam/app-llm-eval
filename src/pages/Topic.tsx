@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { topics } from '@/constants'
-import { HelpCircle, ThumbsDown, ThumbsUp } from 'lucide-react'
+import { HelpCircle, ThumbsDown, ThumbsUp, ChevronLeft } from 'lucide-react'
 import PostContent from '@/components/Post/PostContent'
 
 type Reaction = Record<string, string | null>
@@ -11,6 +11,7 @@ type Reaction = Record<string, string | null>
 const Topic = () => {
   const { id } = useParams()
   const [selectedReactions, setSelectedReactions] = useState<Reaction>({})
+  const navigate = useNavigate()
 
   const topic = topics.find((t) => t.id === id)
 
@@ -31,7 +32,15 @@ const Topic = () => {
 
   return (
     <div className="container mx-auto p-4 sm:p-10">
-      <div className="mb-8">
+      <div className="mb-8 flex flex-row gap-2">
+        <Button
+          variant="ghost"
+          size="lg"
+          className="border-0 h-10 w-10"
+          onClick={() => navigate('/topics')}
+        >
+          <ChevronLeft style={{ height: '2rem', width: '2rem' }} />
+        </Button>
         <h1 className="text-3xl font-bold tracking-tight">{topic.prompt}</h1>
       </div>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
